@@ -101,12 +101,7 @@
             this.menuLuong.Text = "Lương";
             this.menuLuong.Click += new System.EventHandler(this.menuLuong_Click);
             // 
-            // menuBaoCao
-            // 
-            this.menuBaoCao.Name = "menuBaoCao";
-            this.menuBaoCao.Size = new System.Drawing.Size(77, 24);
-            this.menuBaoCao.Text = "Báo cáo";
-            this.menuBaoCao.Click += new System.EventHandler(this.menuBaoCao_Click);
+            
             // 
             // menuTaiKhoan
             // 

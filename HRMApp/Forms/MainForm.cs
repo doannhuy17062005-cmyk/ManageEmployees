@@ -96,11 +96,6 @@ namespace HRMApp.Forms
             LoadForm(new SalaryForm());
         }
 
-        private void menuBaoCao_Click(object sender, EventArgs e)
-        {
-            LoadForm(new ReportForm());
-        }
-
         private void menuTaiKhoan_Click(object sender, EventArgs e)
         {
             // Clear nội dung panel cũ

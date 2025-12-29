@@ -201,12 +201,6 @@
     <Compile Include="Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\ReportForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\ReportForm.Designer.cs">
-      <DependentUpon>ReportForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\RoleForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -236,12 +230,10 @@
     <Compile Include="Repositories\AttendanceRepository.cs" />
     <Compile Include="Repositories\DepartmentRepository.cs" />
     <Compile Include="Repositories\EmployeeRepository.cs" />
-    <Compile Include="Repositories\ReportRepository.cs" />
     <Compile Include="Repositories\RoleRepository.cs" />
     <Compile Include="Repositories\SalaryRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Services\AuthService.cs" />
-    <Compile Include="Services\ReportService.cs" />
     <Compile Include="Services\SalaryService.cs" />
     <Compile Include="Utils\ChartHelper.cs" />
     <Compile Include="Utils\ExcelHelper.cs" />
@@ -264,9 +256,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ReportForm.resx">
-      <DependentUpon>ReportForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\RoleForm.resx">
       <DependentUpon>RoleForm.cs</DependentUpon>

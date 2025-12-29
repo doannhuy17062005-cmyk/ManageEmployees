@@ -1,4 +1,6 @@
-﻿namespace HRMApp.Forms
+﻿using System;
+
+namespace HRMApp.Forms
 {
     partial class EmployeeForm
     {
@@ -51,7 +53,7 @@
             // ===== panelTop =====
             this.panelTop = new System.Windows.Forms.Panel();
             this.panelTop.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelTop.Height = 250;
+            this.panelTop.Height = 320;
             this.panelTop.Padding = new System.Windows.Forms.Padding(10);
 
             // Các label + input
@@ -79,13 +81,20 @@
             this.cboGioiTinh.Location = new System.Drawing.Point(120, 80);
             this.cboGioiTinh.Size = new System.Drawing.Size(121, 24);
 
+            // ===== SĐT =====
             this.lblSoDienThoai = new System.Windows.Forms.Label();
             this.lblSoDienThoai.Text = "SĐT:";
             this.lblSoDienThoai.Location = new System.Drawing.Point(20, 110);
+            this.lblSoDienThoai.AutoSize = true;
 
             this.txtSoDienThoai = new System.Windows.Forms.TextBox();
             this.txtSoDienThoai.Location = new System.Drawing.Point(120, 110);
             this.txtSoDienThoai.Size = new System.Drawing.Size(200, 22);
+            this.txtSoDienThoai.MaxLength = 11;
+            this.txtSoDienThoai.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtSoDienThoai_KeyPress);
+            this.txtSoDienThoai.TextChanged += new System.EventHandler(this.txtSoDienThoai_TextChanged);
+
+
 
             this.lblEmail = new System.Windows.Forms.Label();
             this.lblEmail.Text = "Email:";
@@ -180,7 +189,7 @@
             this.btnTimKiem.Click += new System.EventHandler(this.btnTimKiem_Click);
 
             this.panelSearch.Controls.AddRange(new System.Windows.Forms.Control[] {
-                this.txtTimKiem, this.cboTimPhongBan, this.cboTimVaiTro, this.btnTimKiem
+                this.txtTimKiem, this.cboTimPhongBan, this.cboTimVaiTro, this.btnTimKiem, 
             });
 
             // ===== dgvEmployees =====
@@ -200,5 +209,86 @@
             this.Text = "Quản lý Nhân viên";
             this.Load += new System.EventHandler(this.EmployeeForm_Load);
         }
+        // ===== Validate SĐT: chỉ số, tối đa 11 số, bắt đầu bằng 0 =====
+        private bool _isFixingPhone = false;
+
+        private void txtSoDienThoai_KeyPress(object sender, System.Windows.Forms.KeyPressEventArgs e)
+        {
+            // Cho phép phím điều khiển (Backspace, Delete,...)
+            if (char.IsControl(e.KeyChar)) return;
+
+            // Chỉ cho số
+            if (!char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+                return;
+            }
+
+            var tb = (System.Windows.Forms.TextBox)sender;
+
+            // Nếu gõ ở vị trí đầu tiên (hoặc đang thay thế đoạn có chứa ký tự đầu),
+            // thì bắt buộc là '0'
+            if (tb.SelectionStart == 0 && e.KeyChar != '0')
+            {
+                // Nếu không phải đang gõ tiếp sau số 0 sẵn có
+                // (ngăn trường hợp người dùng thay số đầu thành số khác)
+                if (tb.TextLength == 0 || tb.SelectionLength > 0)
+                {
+                    e.Handled = true;
+                    return;
+                }
+            }
+
+            // Giới hạn 11 số (tính cả trường hợp bôi đen rồi gõ đè)
+            int newLen = tb.TextLength - tb.SelectionLength + 1;
+            if (newLen > 11)
+            {
+                e.Handled = true;
+                return;
+            }
+        }
+
+        private void txtSoDienThoai_TextChanged(object sender, System.EventArgs e)
+        {
+            if (_isFixingPhone) return;
+            _isFixingPhone = true;
+
+            var tb = (System.Windows.Forms.TextBox)sender;
+            int cursor = tb.SelectionStart;
+
+            // Lọc chỉ giữ lại số
+            string digits = KeepOnlyDigits(tb.Text);
+
+            // Cắt tối đa 11 số
+            if (digits.Length > 11)
+                digits = digits.Substring(0, 11);
+
+            // Nếu có nhập gì đó mà không bắt đầu bằng 0 -> ép bắt đầu bằng 0
+            if (digits.Length > 0 && digits[0] != '0')
+            {
+                digits = "0" + digits;
+                if (digits.Length > 11)
+                    digits = digits.Substring(0, 11);
+            }
+
+            tb.Text = digits;
+            tb.SelectionStart = Math.Min(cursor, tb.TextLength);
+
+            _isFixingPhone = false;
+        }
+
+        private string KeepOnlyDigits(string input)
+        {
+            if (string.IsNullOrEmpty(input)) return string.Empty;
+
+            var sb = new System.Text.StringBuilder(input.Length);
+            foreach (char c in input)
+                if (char.IsDigit(c)) sb.Append(c);
+
+            return sb.ToString();
+        }
+  
+
+
     }
 }

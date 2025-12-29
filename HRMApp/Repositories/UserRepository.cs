@@ -8,6 +8,7 @@ namespace HRMApp.Repositories
     public class UserRepository
     {
         private readonly string _connectionString;
+        private readonly DBConnection db = new DBConnection();
 
         public UserRepository()
         {
@@ -71,9 +72,10 @@ namespace HRMApp.Repositories
                 conn.Open();
                 string sql = @"
                     SELECT tk.TaiKhoanID, tk.NhanVienID, tk.TenDangNhap, tk.MatKhau, tk.LaNhanSu,
-                           nv.HoTen, nv.VaiTroID
+                           nv.HoTen, nv.VaiTroID, vt.TenVaiTro
                     FROM taikhoan tk
-                    INNER JOIN nhanvien nv ON tk.NhanVienID = nv.NhanVienID";
+                    INNER JOIN nhanvien nv ON tk.NhanVienID = nv.NhanVienID
+                    LEFT JOIN vaitro vt ON nv.VaiTroID = vt.VaiTroID";
 
                 using (SqlCommand cmd = new SqlCommand(sql, conn))
                 using (SqlDataReader reader = cmd.ExecuteReader())
@@ -88,12 +90,32 @@ namespace HRMApp.Repositories
                             MatKhau = reader.GetString(3),
                             LaNhanSu = reader.GetByte(4) == 1,
                             HoTen = reader.GetString(5),
-                            VaiTroID = reader.GetInt32(6)
+                            VaiTroID = reader.GetInt32(6),
+                            RoleName = reader.GetString(7),
                         });
                     }
                 }
             }
             return users;
+        }
+        public bool ExistsByNhanVien(int nhanVienId, int excludeTaiKhoanId = 0)
+        {
+    
+            using (var conn = db.GetConnection())
+            {
+                conn.Open();
+                string sql = @"
+            SELECT COUNT(1)
+            FROM taikhoan
+            WHERE NhanVienID = @NhanVienID
+              AND (@ExcludeId = 0 OR TaiKhoanID <> @ExcludeId)";
+                using (var cmd = new SqlCommand(sql, conn))
+                {
+                    cmd.Parameters.AddWithValue("@NhanVienID", nhanVienId);
+                    cmd.Parameters.AddWithValue("@ExcludeId", excludeTaiKhoanId);
+                    return (int)cmd.ExecuteScalar() > 0;
+                }
+            }
         }
 
         // ✅ Thêm tài khoản

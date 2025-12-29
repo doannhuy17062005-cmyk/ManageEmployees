@@ -24,6 +24,8 @@
 
         private void InitializeComponent()
         {
+            this.cboNhanVien = new System.Windows.Forms.ComboBox();
+            this.Controls.Add(this.cboNhanVien);
             this.lblUsername = new System.Windows.Forms.Label();
             this.lblPassword = new System.Windows.Forms.Label();
             this.txtUsername = new System.Windows.Forms.TextBox();
@@ -36,6 +38,12 @@
             this.dgvUsers = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsers)).BeginInit();
             this.SuspendLayout();
+            this.cboNhanVien.AutoSize = true;
+            this.cboNhanVien.Location = new System.Drawing.Point(30, 10);
+            this.cboNhanVien.Name = "cboNhanVien";
+            this.cboNhanVien.Size = new System.Drawing.Size(101, 16);
+            this.cboNhanVien.TabIndex = 0;
+            this.cboNhanVien.Text = "Nhân Viên:";
             // 
             // lblUsername
             // 
@@ -158,7 +166,7 @@
         }
 
         #endregion
-
+        private System.Windows.Forms.ComboBox cboNhanVien;
         private System.Windows.Forms.Label lblUsername;
         private System.Windows.Forms.Label lblPassword;
         private System.Windows.Forms.TextBox txtUsername;

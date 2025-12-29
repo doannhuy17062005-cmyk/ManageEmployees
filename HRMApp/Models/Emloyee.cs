@@ -15,8 +15,13 @@ namespace HRMApp.Models
         public string SoDienThoai { get; set; }
         public string Email { get; set; }
         public string DiaChi { get; set; }
+
+        public string Anh { get; set; }
         public DateTime NgayVaoLam { get; set; }
         public int PhongBanID { get; set; }
         public int VaiTroID { get; set; }
+
+        public int Luong { get; set; }
+
     }
 }
