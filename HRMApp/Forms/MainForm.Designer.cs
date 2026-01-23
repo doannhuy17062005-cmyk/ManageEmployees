@@ -13,7 +13,6 @@
         private System.Windows.Forms.ToolStripMenuItem menuVaiTro;
         private System.Windows.Forms.ToolStripMenuItem menuChamCong;
         private System.Windows.Forms.ToolStripMenuItem menuLuong;
-        private System.Windows.Forms.ToolStripMenuItem menuBaoCao;
         private System.Windows.Forms.ToolStripMenuItem menuTaiKhoan;
         private System.Windows.Forms.ToolStripMenuItem menuThoat;
         private System.Windows.Forms.Panel pnlContent;
@@ -41,7 +40,6 @@
             this.menuVaiTro = new System.Windows.Forms.ToolStripMenuItem();
             this.menuChamCong = new System.Windows.Forms.ToolStripMenuItem();
             this.menuLuong = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuBaoCao = new System.Windows.Forms.ToolStripMenuItem();
             this.menuTaiKhoan = new System.Windows.Forms.ToolStripMenuItem();
             this.menuThoat = new System.Windows.Forms.ToolStripMenuItem();
             this.pnlContent = new System.Windows.Forms.Panel();
@@ -57,7 +55,6 @@
             this.menuVaiTro,
             this.menuChamCong,
             this.menuLuong,
-            this.menuBaoCao,
             this.menuTaiKhoan,
             this.menuThoat});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);

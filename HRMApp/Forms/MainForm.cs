@@ -31,7 +31,6 @@ namespace HRMApp.Forms
                 menuVaiTro.Visible = true;
                 menuChamCong.Visible = true;
                 menuLuong.Visible = true;
-                menuBaoCao.Visible = true;
                 menuTaiKhoan.Visible = true;
             }
             else
@@ -42,7 +41,6 @@ namespace HRMApp.Forms
                 menuVaiTro.Visible = false;
                 menuChamCong.Visible = true;
                 menuLuong.Visible = false;
-                menuBaoCao.Visible = false;
                 menuTaiKhoan.Visible = true;
             }
         }

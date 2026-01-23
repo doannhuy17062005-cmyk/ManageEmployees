@@ -490,7 +490,9 @@ namespace HRMApp.Forms
                 {
                     try
                     {
-                        using (var workbook = new XLWorkbook(ofd.FileName))
+                        // Mở file với quyền share để tránh bị Excel/preview khóa
+                        using (var stream = new FileStream(ofd.FileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                        using (var workbook = new XLWorkbook(stream))
                         {
                             var ws = workbook.Worksheet(1);
                             var rows = ws.RangeUsed().RowsUsed();

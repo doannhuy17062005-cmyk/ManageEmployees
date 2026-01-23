@@ -46,9 +46,6 @@ namespace HRMApp.Forms
             this.numThang = new System.Windows.Forms.NumericUpDown();
             this.lblNam = new System.Windows.Forms.Label();
             this.numNam = new System.Windows.Forms.NumericUpDown();
-            this.btnXemThang = new System.Windows.Forms.Button();
-            this.btnXemNam = new System.Windows.Forms.Button();
-            this.btnXemThangNhanVien = new System.Windows.Forms.Button();
             this.btnExportAll = new System.Windows.Forms.Button();
             this.btnExportByEmployee = new System.Windows.Forms.Button();
             this.btnSua = new System.Windows.Forms.Button();
@@ -91,9 +88,6 @@ namespace HRMApp.Forms
             this.groupSalaryInfo.Controls.Add(this.numThang);
             this.groupSalaryInfo.Controls.Add(this.lblNam);
             this.groupSalaryInfo.Controls.Add(this.numNam);
-            this.groupSalaryInfo.Controls.Add(this.btnXemThang);
-            this.groupSalaryInfo.Controls.Add(this.btnXemNam);
-            this.groupSalaryInfo.Controls.Add(this.btnXemThangNhanVien);
             this.groupSalaryInfo.Controls.Add(this.btnExportAll);
             this.groupSalaryInfo.Controls.Add(this.btnExportByEmployee);
             this.groupSalaryInfo.Controls.Add(this.btnSua);
@@ -186,33 +180,7 @@ namespace HRMApp.Forms
             0,
             0,
             0});
-            // 
-            // btnXemThang
-            // 
-            this.btnXemThang.Location = new System.Drawing.Point(380, 25);
-            this.btnXemThang.Name = "btnXemThang";
-            this.btnXemThang.Size = new System.Drawing.Size(150, 28);
-            this.btnXemThang.TabIndex = 6;
-            this.btnXemThang.Text = "Xem theo tháng (All)";
-            this.btnXemThang.Click += new System.EventHandler(this.btnXemThang_Click);
-            // 
-            // btnXemNam
-            // 
-            this.btnXemNam.Location = new System.Drawing.Point(536, 27);
-            this.btnXemNam.Name = "btnXemNam";
-            this.btnXemNam.Size = new System.Drawing.Size(150, 28);
-            this.btnXemNam.TabIndex = 7;
-            this.btnXemNam.Text = "Xem theo năm (NV)";
-            this.btnXemNam.Click += new System.EventHandler(this.btnXemNam_Click);
-            // 
-            // btnXemThangNhanVien
-            // 
-            this.btnXemThangNhanVien.Location = new System.Drawing.Point(380, 65);
-            this.btnXemThangNhanVien.Name = "btnXemThangNhanVien";
-            this.btnXemThangNhanVien.Size = new System.Drawing.Size(150, 28);
-            this.btnXemThangNhanVien.TabIndex = 8;
-            this.btnXemThangNhanVien.Text = "Xem theo tháng (NV)";
-            this.btnXemThangNhanVien.Click += new System.EventHandler(this.btnXemThangNhanVien_Click);
+            
             // 
             // btnExportAll
             // 
@@ -234,7 +202,7 @@ namespace HRMApp.Forms
             // 
             // btnSua
             // 
-            this.btnSua.Location = new System.Drawing.Point(380, 105);
+            this.btnSua.Location = new System.Drawing.Point(50, 105);
             this.btnSua.Name = "btnSua";
             this.btnSua.Size = new System.Drawing.Size(80, 28);
             this.btnSua.TabIndex = 11;
@@ -243,7 +211,7 @@ namespace HRMApp.Forms
             // 
             // btnXoa
             // 
-            this.btnXoa.Location = new System.Drawing.Point(470, 105);
+            this.btnXoa.Location = new System.Drawing.Point(150, 105);
             this.btnXoa.Name = "btnXoa";
             this.btnXoa.Size = new System.Drawing.Size(80, 28);
             this.btnXoa.TabIndex = 12;

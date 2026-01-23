@@ -391,49 +391,6 @@ namespace HRMApp.Forms
             FormatGrid();
         }
 
-        private void btnXemThang_Click(object sender, EventArgs e)
-        {
-            int thang = (int)numThang.Value;
-            int nam = (int)numNam.Value;
-
-            dgvLuong.DataSource = repo.GetAllSalaryReport(thang, nam);
-            _viewMode = ViewMode.AllMonth;
-            btnQuayLai.Visible = false;
-
-            FormatGrid();
-        }
-
-        private void btnXemNam_Click(object sender, EventArgs e)
-        {
-            if (cboNhanVien.SelectedValue == null) return;
-
-            int nhanVienId = Convert.ToInt32(cboNhanVien.SelectedValue);
-            int nam = (int)numNam.Value;
-
-            dgvLuong.DataSource = repo.GetAllSalaryByEmployee(nhanVienId, nam);
-
-            _viewMode = ViewMode.EmpYear;
-            btnQuayLai.Visible = true;
-
-            FormatGrid();
-        }
-
-        private void btnXemThangNhanVien_Click(object sender, EventArgs e)
-        {
-            if (cboNhanVien.SelectedValue == null) return;
-
-            int nhanVienId = Convert.ToInt32(cboNhanVien.SelectedValue);
-            int thang = (int)numThang.Value;
-            int nam = (int)numNam.Value;
-
-            dgvLuong.DataSource = repo.GetSalaryByEmployeeMonth(nhanVienId, thang, nam);
-
-            _viewMode = ViewMode.EmpMonth;
-            btnQuayLai.Visible = true;
-
-            FormatGrid();
-        }
-
         private void btnQuayLai_Click(object sender, EventArgs e)
         {
             LoadAllSalaryByYear();
@@ -538,33 +495,67 @@ namespace HRMApp.Forms
         // --- Xuất Excel toàn bộ nhân viên ---
         private void btnExportAll_Click(object sender, EventArgs e)
         {
-            int thang = (int)numThang.Value;
-            int nam = (int)numNam.Value;
-
-            DataTable dt = repo.GetAllSalaryReport(thang, nam);
-            if (dt.Rows.Count == 0)
+            try
             {
-                MessageBox.Show("Không có dữ liệu!");
-                return;
-            }
+                int thang = (int)numThang.Value;
+                int nam = (int)numNam.Value;
 
-            SaveFileDialog sfd = new SaveFileDialog
-            {
-                Filter = "Excel Files|*.xlsx",
-                FileName = $"SalaryReport_{thang}_{nam}.xlsx"
-            };
+                DataTable dt;
 
-            if (sfd.ShowDialog() == DialogResult.OK)
-            {
-                using (XLWorkbook wb = new XLWorkbook())
+                switch (_viewMode)
                 {
-                    var ws = wb.Worksheets.Add(dt, "AllEmployees");
-                    ws.Columns().AdjustToContents();
-                    wb.SaveAs(sfd.FileName);
+                    case ViewMode.AllYear:
+                        dt = repo.GetAllSalaryReport(null, nam); // xuất theo năm
+                        break;
+
+                    case ViewMode.AllMonth:
+                        dt = repo.GetAllSalaryReport(thang, nam); // xuất theo tháng
+                        break;
+
+                    case ViewMode.EmpYear:
+                        if (cboNhanVien.SelectedValue == null) { MessageBox.Show("Chọn nhân viên!"); return; }
+                        dt = repo.GetAllSalaryByEmployee(Convert.ToInt32(cboNhanVien.SelectedValue), nam);
+                        break;
+
+                    case ViewMode.EmpMonth:
+                        if (cboNhanVien.SelectedValue == null) { MessageBox.Show("Chọn nhân viên!"); return; }
+                        dt = repo.GetSalaryByEmployeeMonth(Convert.ToInt32(cboNhanVien.SelectedValue), thang, nam);
+                        break;
+
+                    default:
+                        dt = repo.GetAllSalaryReport(thang, nam);
+                        break;
                 }
+
+                if (dt == null || dt.Rows.Count == 0)
+                {
+                    MessageBox.Show("Không có dữ liệu để xuất!");
+                    return;
+                }
+
+                using (SaveFileDialog sfd = new SaveFileDialog())
+                {
+                    sfd.Filter = "Excel Files|*.xlsx";
+                    sfd.FileName = $"SalaryExport_{DateTime.Now:yyyyMMdd_HHmm}.xlsx";
+
+                    if (sfd.ShowDialog() != DialogResult.OK) return;
+
+                    using (XLWorkbook wb = new XLWorkbook())
+                    {
+                        var ws = wb.Worksheets.Add(dt, "Salary");
+                        ws.Columns().AdjustToContents();
+                        wb.SaveAs(sfd.FileName);
+                    }
+                }
+
                 MessageBox.Show("Xuất file Excel thành công!");
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi xuất Excel: " + ex.Message);
+            }
         }
+
 
         // --- Xuất Excel cho 1 nhân viên ---
         private void btnExportByEmployee_Click(object sender, EventArgs e)

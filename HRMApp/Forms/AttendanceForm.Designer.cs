@@ -41,7 +41,6 @@
             this.btnThem = new System.Windows.Forms.Button();
             this.btnSua = new System.Windows.Forms.Button();
             this.btnXoa = new System.Windows.Forms.Button();
-            this.btnTaiLai = new System.Windows.Forms.Button();
             this.dgvChamCong = new System.Windows.Forms.DataGridView();
             this.panelTop.SuspendLayout();
             this.groupBoxInfo.SuspendLayout();
@@ -179,15 +178,6 @@
             this.btnXoa.TabIndex = 8;
             this.btnXoa.Text = "Xoá";
             this.btnXoa.Click += new System.EventHandler(this.btnXoa_Click);
-            // 
-            // btnTaiLai
-            // 
-            this.btnTaiLai.Location = new System.Drawing.Point(520, 55);
-            this.btnTaiLai.Name = "btnTaiLai";
-            this.btnTaiLai.Size = new System.Drawing.Size(100, 25);
-            this.btnTaiLai.TabIndex = 9;
-            this.btnTaiLai.Text = "Tải lại";
-            this.btnTaiLai.Click += new System.EventHandler(this.btnTaiLai_Click);
             // 
             // dgvChamCong
             // 

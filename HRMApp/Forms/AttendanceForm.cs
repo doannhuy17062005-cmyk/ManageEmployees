@@ -162,11 +162,6 @@ namespace HRMApp.Forms
             MessageBox.Show("✅ Đã xóa chấm công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        private void btnTaiLai_Click(object sender, EventArgs e)
-        {
-            LoadChamCong();
-        }
-
         private void dgvChamCong_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0 && dgvChamCong.CurrentRow != null)
